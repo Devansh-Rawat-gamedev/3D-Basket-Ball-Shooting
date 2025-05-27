@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace.SO
 {
@@ -20,11 +19,24 @@ namespace DefaultNamespace.SO
         [field: SerializeField] public float StaticFriction { get; private set; }
         [field: SerializeField] public PhysicsMaterialCombine FrictionCombine { get; private set; }
 [NonSerialized]
-        public PhysicsMaterial PhysicsMaterial;
-
+        public PhysicsMaterial PhysicsMaterial ;//made using other fields
+        
+        // This is a custom physics material that will be used for the basketball
         private void OnValidate()
         {
-            PhysicsMaterial = new PhysicsMaterial {
+            InitPhysicsMaterial(out PhysicsMaterial);
+        }
+        private void Awake()
+        {
+            InitPhysicsMaterial(out PhysicsMaterial);
+        }
+        
+        
+        //helper
+        private void InitPhysicsMaterial(out PhysicsMaterial physicsMaterial)
+        {
+            physicsMaterial = new PhysicsMaterial
+            {
                 bounciness = Bounciness,
                 staticFriction = StaticFriction,
                 dynamicFriction = DynamicFriction,

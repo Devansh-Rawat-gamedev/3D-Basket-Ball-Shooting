@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fb76bb3d204309bbb3f735b7276071, type: 3}
   m_Name: Bouncy
   m_EditorClassIdentifier: 
-  <TypeName>k__BackingField: Nouncy
+  <TypeName>k__BackingField: Bouncy
   <Mass>k__BackingField: 1
   <UseRadius>k__BackingField: 0
   <Radius>k__BackingField: 0
