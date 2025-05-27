@@ -1,11 +1,12 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Basket : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerData playerData;
+    [FormerlySerializedAs("playerData")] [SerializeField]
+    private ScoreData scoreData;
     public UnityEvent onShotMade;
     bool isBallInBasket = false;
     private void OnTriggerEnter(Collider other)
@@ -22,7 +23,7 @@ public class Basket : MonoBehaviour
         if (other.transform.position.y < transform.position.y && isBallInBasket)
         {
             isBallInBasket = false;
-            playerData.ShotsMade++;
+            scoreData.ShotsMade++;
             onShotMade.Invoke();
             Destroy(other.gameObject, 2f);
         }

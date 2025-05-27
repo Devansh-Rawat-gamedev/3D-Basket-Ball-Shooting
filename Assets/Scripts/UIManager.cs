@@ -5,14 +5,14 @@ using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
-    public PlayerData playerData;
+    [FormerlySerializedAs("playerData")] public ScoreData scoreData;
     public TimerData timerData;
     public TextMeshProUGUI shotsText;
     public TextMeshProUGUI countDownText;
 
     private void Start()
     {
-        playerData.OnShot += UpdateShotsText;
+        scoreData.OnShot += UpdateShotsText;
         timerData.OnTimeUpdated += UpdateCountDownText;
         UpdateShotsText();
     }
@@ -29,12 +29,12 @@ public class UIManager : MonoBehaviour
 
     public void UpdateShotsText()
     {
-        shotsText.text = $"Shots: {playerData.ShotsMade} / {playerData.ShotsTaken}";
+        shotsText.text = $"Shots: {scoreData.ShotsMade} / {scoreData.ShotsTaken}";
     }
 
     private void OnDestroy()
     {
-        playerData.OnShot -= UpdateShotsText;
+        scoreData.OnShot -= UpdateShotsText;
         timerData.OnTimeUpdated -= UpdateCountDownText;
     }
 }

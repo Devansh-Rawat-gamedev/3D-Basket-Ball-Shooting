@@ -1,4 +1,3 @@
-using System;
 using DefaultNamespace;
 using DefaultNamespace.SO;
 using PrimeTween;
@@ -15,8 +14,8 @@ public class BasketBallShooter : MonoBehaviour
     [SerializeField]
     Basketball ballPrefab;
     
-    [SerializeField]
-    private PlayerData playerData;
+    [FormerlySerializedAs("playerData")] [SerializeField]
+    private ScoreData scoreData;
     [Header("Basketball Settings")]
     [SerializeField]
     BasketBallType basketBallType;
@@ -38,12 +37,11 @@ public class BasketBallShooter : MonoBehaviour
     [SerializeField]
     Ease chargeBallEase = Ease.OutBack;
     
-    
     #endregion
     private Rigidbody _ballInstanceRb;
     private StarterAssetsInputs _input;
-    private Tween pullTween;
-    private Tween shakeTween;
+    private Tween _pullTween;
+    private Tween _shakeTween;
 
     private void Awake()
     {
@@ -80,7 +78,7 @@ public class BasketBallShooter : MonoBehaviour
         }
         else
         {
-            playerData.ShotsTaken++;
+            scoreData.ShotsTaken++;
             onShotTaken.Invoke();
             ReleaseBall();
             _ballInstanceRb = null;
@@ -89,18 +87,18 @@ public class BasketBallShooter : MonoBehaviour
 
     private void ChargeBall()//pullback ball
     {
-        pullTween = Tween.LocalPosition(_ballInstanceRb.transform, chargedBallPosition.localPosition, chargeBallDuration, chargeBallEase).OnComplete(() =>
+        _pullTween = Tween.LocalPosition(_ballInstanceRb.transform, chargedBallPosition.localPosition, chargeBallDuration, chargeBallEase).OnComplete(() =>
         {
-            shakeTween = Tween.ShakeLocalPosition(_ballInstanceRb.transform,new Vector3(0.5f,0.5f,0.5f),
+            _shakeTween = Tween.ShakeLocalPosition(_ballInstanceRb.transform,new Vector3(0.5f,0.5f,0.5f),
                 0.1f, 0.2f, true, Ease.OutBack,0,-1);
         });
     }
 
     private void ReleaseBall()
     {
-        float pullAmount = pullTween.isAlive?pullTween.progress+0.3f:1;
-        pullTween.Stop();
-        shakeTween.Stop();
+        float pullAmount = _pullTween.isAlive?_pullTween.progress+0.3f:1;
+        _pullTween.Stop();
+        _shakeTween.Stop();
         _ballInstanceRb.transform.parent = null;
         _ballInstanceRb.isKinematic = false;
         _ballInstanceRb.AddForce(spawnParent.forward * shootForce * pullAmount, ForceMode.Impulse);

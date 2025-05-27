@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Scriptable Objects/PlayerData")]
-public class PlayerData : ScriptableObject
+public class ScoreData : ScriptableObject
 {
     public Action OnShot;
     private int _shotsTaken;
