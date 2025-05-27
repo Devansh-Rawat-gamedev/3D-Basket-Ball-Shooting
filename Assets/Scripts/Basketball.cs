@@ -12,7 +12,7 @@ namespace DefaultNamespace
         [SerializeField]
         private BasketBallType basketBallType;
         private Rigidbody _rb;
-        private new Collider _collider;
+        private Collider _collider;
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
@@ -45,14 +45,8 @@ namespace DefaultNamespace
             }
             else
             {
-                var physicsMaterial = new PhysicsMaterial
-                {
-                    bounciness = ballType.Bounciness,
-                    staticFriction = ballType.StaticFriction,
-                    dynamicFriction = ballType.DynamicFriction,
-                    bounceCombine = ballType.BounceCombine
-                };
-                _collider.material = physicsMaterial;
+                
+                _collider.material =ballType.PhysicsMaterial;
             }
         }
 

@@ -27,6 +27,8 @@ public class BasketBallShooter : MonoBehaviour
     [Header("Ball Settings")]
     [SerializeField]
     private float shootForce = 10f;
+    [SerializeField]
+    private float spinForce = 5f;
     public UnityEvent onShotTaken;
     [Header("Charge Ball Settings")]
     [SerializeField]
@@ -102,9 +104,8 @@ public class BasketBallShooter : MonoBehaviour
         _ballInstanceRb.transform.parent = null;
         _ballInstanceRb.isKinematic = false;
         _ballInstanceRb.AddForce(spawnParent.forward * shootForce * pullAmount, ForceMode.Impulse);
-        _ballInstanceRb.AddTorque(-_ballInstanceRb.transform.right * shootForce, ForceMode.Impulse);
+        _ballInstanceRb.AddTorque(-_ballInstanceRb.transform.right * spinForce, ForceMode.Impulse);
     }
-
     void SpawnBall()
     {
         if (_ballInstanceRb)
@@ -117,6 +118,15 @@ public class BasketBallShooter : MonoBehaviour
 
         _ballInstanceRb=ballInstance.GetComponent<Rigidbody>();
         _ballInstanceRb.isKinematic = true;
+    }
+    public void ChangeBallType(BasketBallType newBallType)
+    {
+        if (!newBallType) return;
+        basketBallType = newBallType;
+        if (_ballInstanceRb)
+        {
+            Destroy(_ballInstanceRb.gameObject);
+        }
     }
     private void OnDestroy()
     {

@@ -17,6 +17,11 @@ public class UIManager : MonoBehaviour
         UpdateShotsText();
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     private void UpdateCountDownText(float obj)
     {
         countDownText.text = $"Time: {Mathf.CeilToInt(obj)}s";
