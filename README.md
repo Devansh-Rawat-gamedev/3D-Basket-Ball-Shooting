@@ -45,5 +45,5 @@
 - You might see something called `Game Event` and `Game Event Listener` ScriptableObjects. Useful for decoupling code.
 - `UImanager` only updates the UI based on the data from `UIData` ScriptableObject.
 - Clicking the UI Buttons will trigger local unity events to do stuff.
-## Short GamePlay(does not justify the code architechture i followed)
+## Short GamePlay(looks does not justify the lines of code i wrote 😢)
 https://github.com/user-attachments/assets/a492d750-9fd1-49bb-86f4-2f84b3c017d7
